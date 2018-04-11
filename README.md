@@ -1,3 +1,3 @@
 # ClusterTrees
 
-A tree-based clustering method for improved interpretability.
+In progress projec to develop a tree-based clustering method for improved interpretability.
