@@ -563,7 +563,7 @@ function ClusterTree(X,c_p,max_depth,K;local_sparsity=1,
                 "direct parent" => direct_parent,
                 "left parents" => left_parents,
                 "right parents" => right_parents,
-                "obj" => getobjectivevalue(mod)), starts
+                "obj" => getobjectivevalue(mod), "K" => K), starts
 end;
 
 function feature_scaling(X)

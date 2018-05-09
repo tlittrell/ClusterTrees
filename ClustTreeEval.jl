@@ -37,11 +37,14 @@ end
 function tot_withinss(tree, X)
 
     tree_assignments = get_cluster_assignments(tree)
-    n_clusters = length(unique(tree_assignments))
+    n_clusters = tree["K"]
     val = 0
     for i = 1:n_clusters
         y_coord = find(x -> x == i, tree_assignments)
-        val = val + withinss(X[y_coord,:])
+        # don't count clusters with 0 points in them
+        if !isempty(y_coord)
+            val = val + withinss(X[y_coord,:])
+        end
     end
     return(val)
 end
