@@ -90,8 +90,7 @@ function get_branch_label(tree,i, samples)
             end
         end
     end
-    str = string(str, """ < $(@sprintf("%0.2f",b[i])) \n
-        Samples = $(@sprintf("%d",samples))" 
+    str = string(str, """ < $(@sprintf("%0.2f",b[i]))" 
         style="filled" color = "black" fillcolor = "gray94"
         shape = "box"]""")
     return(str)
@@ -125,8 +124,7 @@ function leaf_label_string(tree)
     clusters =  generate_edges(result)["clusters"]
     str = string()
     for i = 1:length(clusters)
-        str = string(str,"""$(clusters[i]) [label = "Cluster $(i) \n 
-            Samples = $(@sprintf("%d",samples[i]))" 
+        str = string(str,"""$(clusters[i]) [label = "Cluster $(i)" 
             style="filled" color = "black" fillcolor = "$(colorList[i])"
             shape = "ellipse"]; """)
     end
@@ -160,7 +158,7 @@ function get_cluster_assignments(result)
 end
 
 function plot_cluster_tree(result,depth,X)
-    num_nodes = num_tree_nodes(max_depth)
+    num_nodes = num_tree_nodes(depth)
     Branches = result["branches"]
     Leaves = result["leaves"]
     direct_parent = result["direct parent"]

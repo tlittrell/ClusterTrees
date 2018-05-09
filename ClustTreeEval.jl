@@ -47,13 +47,14 @@ function tot_withinss(tree, X)
 end
 
 function evaluate_cluster_trees(X, Y, tree)
+    n, p = size(X)
     accuracy = cluster_accuracy(tree, Y)
     min_cluster_size, max_cluster_size = cluster_size(tree)
     totalss = withinss(X)
     total_withinss = tot_withinss(tree, X)
     total_betweenss = totalss - total_withinss
     df = DataFrame()
-    return(DataFrame(accuracy = accuracy, min_cluster_size = min_cluster_size, 
+    return(DataFrame(n = n, p = p, accuracy = accuracy, min_cluster_size = min_cluster_size, 
             max_cluster_size = max_cluster_size, totalss = totalss,
             total_withinss = total_withinss, total_betweenss = total_betweenss))
 end
