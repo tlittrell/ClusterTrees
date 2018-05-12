@@ -120,8 +120,8 @@ function leaf_label_string(tree)
     colorList = ["indianred1", "turquoise1", "green", 
     "orange", "hotpink", "yellow", "powderblue", "plum1"];
     
-    samples = sum(result["z"][:,:],1)
-    clusters =  generate_edges(result)["clusters"]
+    samples = sum(tree["z"][:,:],1)
+    clusters =  generate_edges(tree)["clusters"]
     str = string()
     for i = 1:length(clusters)
         str = string(str,"""$(clusters[i]) [label = "Cluster $(i)" 
@@ -131,10 +131,10 @@ function leaf_label_string(tree)
     return(str)
 end
 
-function VizClusterTree(result)
-    edge_text = generate_edges(result)["edge text"]
-    label_text = branch_label_string(result)
-    leaf_text = leaf_label_string(result)
+function VizClusterTree(tree)
+    edge_text = generate_edges(tree)["edge text"]
+    label_text = branch_label_string(tree)
+    leaf_text = leaf_label_string(tree)
     g = Graph("""
     graph graphname {
         $(label_text)

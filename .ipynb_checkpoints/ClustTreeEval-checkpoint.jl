@@ -68,3 +68,14 @@ function evaluate_cluster_trees(X, Y, tree; file_name = "n/a")
             total_withinss = total_withinss, total_betweenss = total_betweenss, time = tree["time"],
             status = tree["status"], objbound = tree["objbound"], objval = tree["objval"], objgap = gap))
 end
+
+function evaluate_test_case(file; path = "Test cases/", TimeLimit = 3600)
+    println(file)
+    data = load(string(path, file))["data"]
+    X = create_synthetic_data(data["ns"],data["μs"],data["σs"],seed=data["seed"])
+    Y = synthetic_data_cluster_assignments(data["ns"]);
+    @time result = ClusterTree(X,data["c_p"],data["md"],data["K"]; warm_start = true, 
+                                        local_sparsity = data["local_sparsity"], TimeLimit = TimeLimit);
+    df = evaluate_cluster_trees(X, Y, result; file_name = file)
+    return(Dict("df" => df, "tree" => result, "X" => X, "Y" => Y, "data" => data))
+end
