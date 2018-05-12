@@ -534,7 +534,7 @@ function ClusterTree(X,c_p,max_depth,K;local_sparsity=1,
             M_p*sum(margin[m] for m in Branches))
     end
 
-    @time status = solve(mod)
+    status = solve(mod)
     
     println("Status = ", status)
     old_a = getvalue(a)
@@ -564,7 +564,7 @@ function ClusterTree(X,c_p,max_depth,K;local_sparsity=1,
                 "left parents" => left_parents,
                 "right parents" => right_parents,
                 "obj" => getobjectivevalue(mod), "K" => K, "time" => getsolvetime(mod),
-                "starts" => starts)
+                "starts" => starts, "objgap" => getobjgap(mod), "status" => status)
 end;
 
 function feature_scaling(X)
