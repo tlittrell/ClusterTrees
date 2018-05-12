@@ -33,7 +33,7 @@ function generate_edges(tree)
     
     leaves = tree["leaves"]
     
-    dps = result["direct parent"]
+    dps = tree["direct parent"]
     
     # generate branches where there is a split
     for i in non_zero
