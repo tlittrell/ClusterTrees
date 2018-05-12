@@ -59,5 +59,5 @@ function evaluate_cluster_trees(X, Y, tree; file_name = "n/a")
     df = DataFrame()
     return(DataFrame(file = file_name, n = n, p = p, accuracy = accuracy, min_cluster_size = min_cluster_size, 
             max_cluster_size = max_cluster_size, totalss = totalss,
-            total_withinss = total_withinss, total_betweenss = total_betweenss))
+            total_withinss = total_withinss, total_betweenss = total_betweenss, time = tree["time"]))
 end

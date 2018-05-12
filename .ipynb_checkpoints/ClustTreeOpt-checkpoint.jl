@@ -352,7 +352,7 @@ end
 
 function ClusterTree(X,c_p,max_depth,K;local_sparsity=1,
         maximize_margin=true, warm_start = false, N_min = 2,
-        criterion = :L2, OutputFlag=0)
+        criterion = :L2, OutputFlag=0, TimeLimit = 3600)
     # Pre-compute various model factors
     X, sc, sh = feature_scaling(X)
     num_nodes = num_tree_nodes(max_depth)
@@ -368,7 +368,7 @@ function ClusterTree(X,c_p,max_depth,K;local_sparsity=1,
 
     starts = warmstart(X,K,N_min,max_depth, m_p, c_p, Ω, local_sparsity, criterion, warm_start)
     
-    mod = Model(solver = GurobiSolver(OutputFlag=OutputFlag))
+    mod = Model(solver = GurobiSolver(OutputFlag=OutputFlag, TimeLimit = TimeLimit))
     # Split Variables
     if (local_sparsity == 1) 
         @variable(mod, a[j=1:p,t in Branches], Bin, start = starts["a"][j,t])
@@ -563,7 +563,7 @@ function ClusterTree(X,c_p,max_depth,K;local_sparsity=1,
                 "direct parent" => direct_parent,
                 "left parents" => left_parents,
                 "right parents" => right_parents,
-                "obj" => getobjectivevalue(mod), "K" => K), starts
+                "obj" => getobjectivevalue(mod), "K" => K, "time" => getsolvetime(mod)), starts
 end;
 
 function feature_scaling(X)
