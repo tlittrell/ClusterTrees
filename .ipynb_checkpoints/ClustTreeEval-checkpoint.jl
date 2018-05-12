@@ -49,6 +49,11 @@ function tot_withinss(tree, X)
     return(val)
 end
 
+function objective_gap(tree)
+    gap = abs(tree["objbound"] - tree["objval"]) / abs(tree["objval"])
+    return(gap)
+end
+
 function evaluate_cluster_trees(X, Y, tree; file_name = "n/a")
     n, p = size(X)
     accuracy = cluster_accuracy(tree, Y)
@@ -56,9 +61,10 @@ function evaluate_cluster_trees(X, Y, tree; file_name = "n/a")
     totalss = withinss(X)
     total_withinss = tot_withinss(tree, X)
     total_betweenss = totalss - total_withinss
+    gap = objective_gap(tree)
     df = DataFrame()
     return(DataFrame(file = file_name, n = n, p = p, accuracy = accuracy, min_cluster_size = min_cluster_size, 
             max_cluster_size = max_cluster_size, totalss = totalss,
             total_withinss = total_withinss, total_betweenss = total_betweenss, time = tree["time"],
-            status = tree["status"]))
+            status = tree["status"], objbound = tree["objbound"], objval = tree["objval"], objgap = gap))
 end
