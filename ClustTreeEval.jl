@@ -9,6 +9,7 @@ function cluster_accuracy(tree, Y)
     
     correct_points = zeros(n_clusters)
     total_points = zeros(n_clusters)
+    all_mode_classes = Int64[]
     for i = 1:n_clusters
         tree_cluster = Int64[]
         for j = 1:n_points
@@ -18,6 +19,11 @@ function cluster_accuracy(tree, Y)
         end
         total_points[i] = length(tree_cluster)
         mode_class = mode(tree_cluster)
+        if mode_class in all_mode_classes
+            mode_class = 0
+        else
+            append!(all_mode_classes,mode_class)
+        end
         correct_points[i] = total_points[i] - countnz(tree_cluster - mode_class)
     end
     return(sum(correct_points)/sum(total_points))

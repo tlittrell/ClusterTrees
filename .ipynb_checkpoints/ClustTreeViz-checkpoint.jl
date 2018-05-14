@@ -14,7 +14,7 @@ function find_nonzero_nodes(tree)
     nonzeros = Int64[]
     zeros = Int64[]
     for i = 1:n
-        if b[i] != 0
+        if (b[i] != 0) & (b[i] < 1000)
             append!(nonzeros,i)
         else
             append!(zeros, i)
